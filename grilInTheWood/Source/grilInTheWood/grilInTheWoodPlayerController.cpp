@@ -6,13 +6,15 @@
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "grilInTheWoodCharacter.h"
 #include "Engine/World.h"
+#include <Runtime/Engine/Public/DrawDebugHelpers.h>
+#include "Chaos/Array.h"
 
 
 AgrilInTheWoodPlayerController::AgrilInTheWoodPlayerController()
 {
 	forwardVal = 0.0f;
 	rightVal = 0.0f;
-	mouseLFlag = false;
+	mouseRFlag = false;
 	mouseVal = 100000000.0f;
 }
 
@@ -26,7 +28,7 @@ void AgrilInTheWoodPlayerController::BeginPlay()
 void AgrilInTheWoodPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
-	// keep updating the destination every tick while desired
+	skillVal = (int)mouseVal % 400 / 100;
 
 }
 
@@ -37,7 +39,7 @@ void AgrilInTheWoodPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("MouseL", IE_Pressed, this, &AgrilInTheWoodPlayerController::OnSetDestinationPressed);
 	InputComponent->BindAction("MouseL", IE_Released, this, &AgrilInTheWoodPlayerController::OnSetDestinationReleased);
-	InputComponent->BindAction("Space", IE_Pressed, this, &AgrilInTheWoodPlayerController::Jump);
+	//InputComponent->BindAction("Space", IE_Pressed, this, &AgrilInTheWoodPlayerController::Jump);
 	InputComponent->BindAction("F", IE_Pressed, this, &AgrilInTheWoodPlayerController::F_Pressed);
 	InputComponent->BindAction("F", IE_Released, this, &AgrilInTheWoodPlayerController::F_Released);
 
@@ -60,37 +62,18 @@ void AgrilInTheWoodPlayerController::Right(float val)
 	MyPawn->RightWalk(val * walkSpeed);
 }
 
-void AgrilInTheWoodPlayerController::Jump()
-{
-	MyPawn->Jump();
-}
-
 
 void AgrilInTheWoodPlayerController::SeeToMouseR(float val)
 {
 	if (val > 0.5f)
 	{
 		MyPawn->SeeTo();
-		if (mouseLFlag) 
-		{
-			int skillVal = (int)mouseVal % 400 / 100;
-			if (skillVal == 1)
-			{
-				MyPawn->Skill1();
-			}
-			else if (skillVal == 2)
-			{
-				MyPawn->Skill2();
-			}
-			else if (skillVal == 3)
-			{
-				MyPawn->Skill3();
-			}
-			else
-			{
-				MyPawn->Skill0();
-			}
-		}
+		mouseRFlag = true;
+		
+	}
+	else
+	{
+		mouseRFlag = false;
 	}
 }
 
@@ -125,10 +108,28 @@ void AgrilInTheWoodPlayerController::SetNewMoveDestination(const FVector DestLoc
 
 void AgrilInTheWoodPlayerController::OnSetDestinationPressed()
 {
-	mouseLFlag = true;
+	if (mouseRFlag)
+	{
+		if (skillVal == 1)
+		{
+			MyPawn->Skill1();
+		}
+		else if (skillVal == 2)
+		{
+			MyPawn->Skill2();
+		}
+		else if (skillVal == 3)
+		{
+			MyPawn->Skill3();
+		}
+		else
+		{
+			MyPawn->Skill0();
+		}
+	}
 }
 
 void AgrilInTheWoodPlayerController::OnSetDestinationReleased()
 {
-	mouseLFlag = false;
+
 }

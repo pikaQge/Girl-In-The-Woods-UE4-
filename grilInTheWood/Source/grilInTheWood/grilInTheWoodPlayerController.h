@@ -25,8 +25,12 @@ public:
 	float rightVal;
 	float mouseVal;
 	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
-	bool mouseLFlag;
+	bool mouseRFlag;
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
+	int skillVal;
 
+	FHitResult hit1;
+	FHitResult hit2;
 
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */

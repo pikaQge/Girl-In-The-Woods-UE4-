@@ -29,13 +29,13 @@ AgrilInTheWoodCharacter::AgrilInTheWoodCharacter()
 	GetCharacterMovement()->bConstrainToPlane = true;
 	GetCharacterMovement()->bSnapToPlaneAtStart = true;
 
-	// Create a camera boom...
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->SetUsingAbsoluteRotation(true); // Don't want arm to rotate when character does
-	CameraBoom->TargetArmLength = 800.f;
-	CameraBoom->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
-	CameraBoom->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level
+	//// Create a camera boom...
+	//CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+	//CameraBoom->SetupAttachment(RootComponent);
+	//CameraBoom->SetUsingAbsoluteRotation(true); // Don't want arm to rotate when character does
+	//CameraBoom->TargetArmLength = 800.f;
+	//CameraBoom->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
+	//CameraBoom->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level
 
 	// Create a camera...
 	//TopDownCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
@@ -79,19 +79,10 @@ void AgrilInTheWoodCharacter::RightWalk(float val)
 }
 
 
-void AgrilInTheWoodCharacter::SeeTo_Implementation()
-{
-
-}
-
 FVector AgrilInTheWoodCharacter::GetCursorToWorld()
 {
 	return hit.ImpactPoint;
 }
-
-
-
-
 
 
 

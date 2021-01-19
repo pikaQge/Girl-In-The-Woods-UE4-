@@ -25,7 +25,7 @@ public:
 	FVector GetCursorToWorld();
 	void ForwardWalk(float val);
 	void RightWalk(float val);
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SeeTo();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
