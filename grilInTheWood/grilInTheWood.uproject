@@ -13,5 +13,12 @@
 				"AIModule"
 			]
 		}
+	],
+	"Plugins": [
+		{
+			"Name": "Prefabricator",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/39ccbbf668e84847890992df9922e355"
+		}
 	]
 }
